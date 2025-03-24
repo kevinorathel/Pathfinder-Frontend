@@ -87,7 +87,7 @@ function App() {
                   <button
                     onClick={handleGetRecommendations}
                     disabled={isLoading}
-                    className="w-full p-3 border rounded-md bg-blue-500 text-white font-semibold transition-all duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="w-full p-3 border rounded-md bg-red-500 text-white font-semibold transition-all duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   >
                     {isLoading ? 'Loading...' : 'Get Course Recommendations'}
                   </button>
@@ -105,17 +105,17 @@ function App() {
           {courseRecommendations.length > 0 && (
             <div className="bg-white rounded-lg shadow-lg p-6 mt-8 transition-all duration-300">
               <h3 className="text-xl font-bold text-black mb-4">Recommended Courses</h3>
-              <ul className="space-y-3">
-                {courseRecommendations.map((course) => (
-                  <li 
-                    key={course.courseId}
-                    className="p-3 bg-gray-50 rounded-md text-black transition-all duration-300 hover:bg-red-50"
+              <div className="grid grid-cols-2 gap-6">
+                {courseRecommendations.map((course, index) => (
+                  <div 
+                    key={course.courseId} 
+                    className="p-4 bg-gray-50 rounded-md text-black transition-all duration-300 hover:bg-red-50"
                   >
-                    <h4 className="font-semibold">{course.courseCode}: {course.courseName}</h4>
-                    <p>{course.courseDescription}</p>
-                  </li>
+                    <h2 className="font-semibold">{course.courseCode}: {course.courseName}</h2>
+                    {/* <p className="mt-2">{course.courseDescription}</p> */}
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
         </div>
