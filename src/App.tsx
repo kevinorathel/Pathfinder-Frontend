@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { GraduationCap, BookOpen } from 'lucide-react';
+import { LogOut } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 type Program = 'IT' | 'DA' | 'CS';
 type Career = string;
@@ -30,11 +32,18 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCourseClick = (course: any) => {
-    console.log("Course clicked:", course.courseName); // Debugging log
+    console.log("Course clicked:", course.courseName);
     setSelectedCourse(course);
     setIsModalOpen(true);
 };
+     
+const handleLogout = () => {
+  console.log("Logging out...");
+};
 
+const handleNextStep = () => {
+  console.log("Next button clicked...");
+};
 
   const handleGetRecommendations = async () => {
     if (selectedProgram && career) {
@@ -58,12 +67,22 @@ function App() {
           <h1 className="text-[26px] font-bold text-white">
             Clark University
           </h1>
+              <button
+    onClick={handleLogout}
+    className="flex items-center gap-2 px-4 py-2 bg-white text-red-500 
+               font-semibold rounded-full transition-all duration-300 
+               hover:bg-red-400 hover:text-white absolute right-[5%]"
+  >
+    <LogOut className="w-5 h-5 text-red-500 fill-white transition-all duration-300 group-hover:fill-red-400" />
+    Logout
+  </button>
+
         </div>
       </div>
       <div className="relative flex-1">
         <div className="absolute inset-0 bg-contain bg-center bg-no-repeat pointer-events-none h-[50vh]" style={{ backgroundImage: 'url("/clark-watermark.png")' }} />
         <div className="relative z-10 container mx-auto px-4" style={{ marginTop: '40vh' }}>
-        <h2 className="text-[30px] font-bold text-black mt-8 flex items-center">PathFinder</h2>
+        <h2 className="text-[30px] font-bold text-black mt-8 flex items-center">PathFinder: Course Recommender for SPS Graduates</h2>
           <div className="flex gap-8">
             <div className="w-[70%]">
               <div className="grid gap-8">
@@ -100,16 +119,18 @@ function App() {
                   <button
                     onClick={handleGetRecommendations}
                     disabled={isLoading}
-                    className="w-full p-3 border rounded-md bg-red-500 text-white font-semibold transition-all duration-300 hover:bg-red-300 -600 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="w-full p-3 border rounded-md bg-red-500 text-white font-semibold transition-all duration-300 hover:bg-red-500/60 focus:outline-none focus:ring-2 focus:ring-blue-200"
                   >
                     {isLoading ? 'Loading...' : 'Get Course Recommendations'}
                   </button>
+                  
+                 
                 </div>
               </div>
             </div>
             <div className="w-[30%]">
               <img 
-                src="/img6.jpg" 
+                src="/chill-guy.avif" 
                 alt="updated the mans image"
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -131,6 +152,18 @@ function App() {
                   </div>
                 ))}
               </div>
+              {courseRecommendations.length >= 10 && (
+      <div className="flex justify-end mt-6">
+        <button
+          onClick={handleNextStep}
+          className="right-[10%] px-6 py-3 border rounded-lg bg-red-500 text-white font-semibold 
+                     transition-all duration-300 hover:bg-red-500/60 focus:outline-none focus:ring-2 focus:ring-blue-200"
+        >
+          Next 
+          <ArrowRight className="w-5 h-5 inline-block ml-2" />
+        </button>
+      </div>
+    )}
             </div>
           )}
              {isModalOpen && selectedCourse && (
